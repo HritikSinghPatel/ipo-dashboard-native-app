@@ -1,20 +1,30 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { createStackNavigator } from '@react-navigation/stack';
+import { NavigationContainer } from '@react-navigation/native';
+import LoginScreen from './app/LoginScreen';
+import RegistrationScreen from './app/RegistrationScreen';
+import { ThemeProvider } from './app/context/ThemeContext';
+import Layout from './app/home/Layout'
+import NewsFetcher from './app/news/NewsFetcher.js';
+import DashboardScreen from './app/home/DashboardScreen.js';
+// import Dashboard from './app/home/Dashboard.js';
 
-export default function App() {
+
+const Stack = createStackNavigator();
+
+const App = () => {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <ThemeProvider>
+    <NavigationContainer>
+       <Stack.Navigator initialRouteName="Home">
+        <Stack.Screen name='Home' component={Layout}/>
+        <Stack.Screen name="IPOs" component={DashboardScreen}/>
+        <Stack.Screen name="Login" component={LoginScreen} />
+        <Stack.Screen name="Registration" component={RegistrationScreen} />
+        <Stack.Screen name="Currency Exchange" component={NewsFetcher} />
+      </Stack.Navigator>
+    </NavigationContainer>
+    </ThemeProvider>
   );
-}
+};
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default App;
